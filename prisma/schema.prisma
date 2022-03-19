@@ -6,6 +6,20 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model Device {
+  id         Int      @id @default(autoincrement())
+  categoryId Int      @unique
+  color      String   @db.VarChar(16)
+  partNumber Int
+  category   Category @relation(fields: [categoryId], references: [id])
+}
+
+model Category {
+  id     Int     @id @default(autoincrement())
+  name   String  @db.VarChar(128)
+  device Device?
 }
