@@ -6,11 +6,11 @@ import { DeviceRepository } from 'src/repositories/device/device.repository';
 export class DeviceService {
   constructor(private readonly deviceRepository: DeviceRepository) {}
 
-  findDevices(): Promise<Device[]> {
+  findDevices(): Promise<(Device | null)[]> {
     return this.deviceRepository.findAll();
   }
 
-  findDeviceById(id: number): Promise<Device> {
+  findDeviceById(id: number): Promise<Device | null> {
     return this.deviceRepository.findById(id);
   }
 }

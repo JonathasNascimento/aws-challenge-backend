@@ -7,12 +7,12 @@ export class DeviceController {
   constructor(private readonly deviceService: DeviceService) {}
 
   @Get()
-  findDevices(): Promise<Device[]> {
+  findDevices(): Promise<(Device | null)[]> {
     return this.deviceService.findDevices();
   }
 
   @Get(':id')
-  findDeviceById(@Param() params): Promise<Device> {
+  findDeviceById(@Param() params): Promise<Device | null> {
     return this.deviceService.findDeviceById(params.id);
   }
 }
