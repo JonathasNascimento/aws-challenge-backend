@@ -1,8 +1,6 @@
-import { Category } from './category';
-
-export class Device {
+export interface Device {
   id: number;
-  category: Category;
+  categoryId: number;
   color: string;
   partNumber: number;
 }
