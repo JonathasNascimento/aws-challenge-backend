@@ -11,6 +11,6 @@ export class DeviceRepository {
   }
 
   findById(id: number): Promise<Device> {
-    return this.prisma.device.findUnique({ where: { id } });
+    return this.prisma.device.findUnique({ where: { id: +id } });
   }
 }

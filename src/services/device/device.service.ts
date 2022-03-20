@@ -1,17 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { Device } from '@prisma/client';
-
-import { PrismaService } from '../prisma/prisma.service';
+import { DeviceRepository } from 'src/repositories/device/device.repository';
 
 @Injectable()
 export class DeviceService {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly deviceRepository: DeviceRepository) { }
 
   findDevices(): Promise<Device[]> {
-    return this.prisma.device.findMany();
+    return this.deviceRepository.findAll();
   }
 
   findDeviceById(id: number): Promise<Device> {
-    return this.prisma.device.findUnique({ where: { id } });
+    return this.deviceRepository.findById(id);
   }
 }
