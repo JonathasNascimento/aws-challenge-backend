@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { DeviceRepository } from 'src/repositories/device/device.repository';
 
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from '../../repositories/prisma/prisma.service';
 import { DeviceService } from './device.service';
 
 describe('DeviceService', () => {

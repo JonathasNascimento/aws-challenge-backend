@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaClient } from '@prisma/client';
-import { PrismaService } from 'src/services/prisma/prisma.service';
+import { PrismaService } from 'src/repositories/prisma/prisma.service';
 
 import { createMockContext, MockContext } from '../../../test/context';
 import { DeviceRepository } from './device.repository';

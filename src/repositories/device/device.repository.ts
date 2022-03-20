@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Device } from '@prisma/client';
 import { Device as DeviceModel } from 'src/models/device';
-import { PrismaService } from 'src/services/prisma/prisma.service';
+import { PrismaService } from 'src/repositories/prisma/prisma.service';
 
 @Injectable()
 export class DeviceRepository {
