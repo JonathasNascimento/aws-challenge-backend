@@ -17,6 +17,11 @@ export class DeviceRepository {
     return Promise.resolve(this.toDeviceModel(device));
   }
 
+  async createNew(device: DeviceModel) {
+    const newDevice = await this.prisma.device.create({ data: device });
+    return Promise.resolve(this.toDeviceModel(newDevice));
+  }
+
   private toDeviceModel(device: Device | null): DeviceModel | null {
     if (device === null) {
       return null;

@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaClient } from '@prisma/client';
-import { Device } from 'src/models/device';
 import { PrismaService } from 'src/services/prisma/prisma.service';
 
 import { createMockContext, MockContext } from '../../../test/context';
@@ -10,6 +9,7 @@ describe('DeviceRepository', () => {
   let repository: DeviceRepository;
   let deviceRepository: DeviceRepository;
   let mockCtx: MockContext;
+  let device;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -23,6 +23,13 @@ describe('DeviceRepository', () => {
       // eslint-disable-next-line prettier/prettier
       (mockCtx.prisma as unknown) as PrismaService,
     );
+
+    device = {
+      id: 1,
+      categoryId: 1,
+      color: 'black',
+      partNumber: 1,
+    };
   });
 
   it('should be defined', () => {
@@ -36,28 +43,22 @@ describe('DeviceRepository', () => {
   });
 
   it('should find a device', async () => {
-    const device: Device = {
-      id: 1,
-      categoryId: 1,
-      color: 'black',
-      partNumber: 1,
-    };
-
     mockCtx.prisma.device.findUnique.mockResolvedValue(device);
 
     await expect(deviceRepository.findById(10)).resolves.toEqual({ ...device });
   });
 
   it('should fetch all devices', async () => {
-    const device: Device = {
-      id: 1,
-      categoryId: 1,
-      color: 'black',
-      partNumber: 1,
-    };
-
     mockCtx.prisma.device.findMany.mockResolvedValue([device]);
 
     await expect(deviceRepository.findAll()).resolves.toEqual([{ ...device }]);
+  });
+
+  it('should create new device', async () => {
+    mockCtx.prisma.device.create.mockResolvedValue(device);
+
+    await expect(deviceRepository.createNew(device)).resolves.toEqual({
+      ...device,
+    });
   });
 });
