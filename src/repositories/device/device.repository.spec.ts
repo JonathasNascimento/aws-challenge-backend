@@ -1,13 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { PrismaService } from 'src/services/prisma/prisma.service';
 
 import { DeviceRepository } from './device.repository';
 
-describe('DeviceService', () => {
+describe('DeviceRepository', () => {
   let repository: DeviceRepository;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [DeviceRepository],
+      providers: [DeviceRepository, PrismaService],
     }).compile();
 
     repository = module.get<DeviceRepository>(DeviceRepository);
