@@ -4,7 +4,7 @@ import { DeviceService } from 'src/services/device/device.service';
 
 @Controller('device')
 export class DeviceController {
-  constructor(private readonly deviceService: DeviceService) { }
+  constructor(private readonly deviceService: DeviceService) {}
 
   @Get()
   findDevices(): Promise<Device[]> {

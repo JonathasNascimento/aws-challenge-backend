@@ -5,7 +5,7 @@ import { PrismaService } from 'src/services/prisma/prisma.service';
 
 @Injectable()
 export class DeviceRepository {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async findAll(): Promise<DeviceModel[]> {
     const devices = await this.prisma.device.findMany();
