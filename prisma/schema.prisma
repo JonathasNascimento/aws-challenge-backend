@@ -11,15 +11,15 @@ datasource db {
 }
 
 model Device {
-  id         Int      @id @default(autoincrement())
-  categoryId Int      @unique
-  color      String   @db.VarChar(16)
+  id         Int       @id @default(autoincrement())
+  categoryId Int
+  color      String    @db.VarChar(16)
   partNumber Int
-  category   Category @relation(fields: [categoryId], references: [id])
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 }
 
 model Category {
-  id     Int     @id @default(autoincrement())
-  name   String  @db.VarChar(128)
-  device Device?
+  id     Int      @id @default(autoincrement())
+  name   String   @db.VarChar(128)
+  device Device[]
 }

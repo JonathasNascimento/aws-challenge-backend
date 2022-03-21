@@ -5,7 +5,6 @@ CREATE TABLE `Device` (
     `color` VARCHAR(16) NOT NULL,
     `partNumber` INTEGER NOT NULL,
 
-    UNIQUE INDEX `Device_categoryId_key`(`categoryId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -18,4 +17,4 @@ CREATE TABLE `Category` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `Device` ADD CONSTRAINT `Device_categoryId_fkey` FOREIGN KEY (`categoryId`) REFERENCES `Category`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `Device` ADD CONSTRAINT `Device_categoryId_fkey` FOREIGN KEY (`categoryId`) REFERENCES `Category`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
