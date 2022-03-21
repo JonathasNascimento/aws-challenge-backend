@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { Device } from 'src/models/device';
 import { DeviceService } from 'src/services/device/device.service';
 
@@ -19,5 +19,10 @@ export class DeviceController {
   @Post()
   createDevice(@Body() device: Device): Promise<Device | null> {
     return this.deviceService.createNewDevice(device);
+  }
+
+  @Delete(':id')
+  deleteDevice(@Param() params): Promise<Device | null> {
+    return this.deviceService.deleteDevice(params.id);
   }
 }

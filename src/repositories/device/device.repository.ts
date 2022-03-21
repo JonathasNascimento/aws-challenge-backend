@@ -22,6 +22,11 @@ export class DeviceRepository {
     return Promise.resolve(this.toDeviceModel(newDevice));
   }
 
+  async delete(id: number) {
+    const newDevice = await this.prisma.device.delete({ where: { id: +id } });
+    return Promise.resolve(this.toDeviceModel(newDevice));
+  }
+
   private toDeviceModel(device: Device | null): DeviceModel | null {
     if (device === null) {
       return null;

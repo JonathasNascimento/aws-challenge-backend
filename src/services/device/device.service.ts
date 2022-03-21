@@ -17,4 +17,8 @@ export class DeviceService {
   createNewDevice(device: Device): Promise<Device | null> {
     return this.deviceRepository.createNew(device);
   }
+
+  deleteDevice(id: number): Promise<Device | null> {
+    return this.deviceRepository.delete(id);
+  }
 }
