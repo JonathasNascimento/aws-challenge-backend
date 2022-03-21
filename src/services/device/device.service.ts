@@ -13,4 +13,8 @@ export class DeviceService {
   findDeviceById(id: number): Promise<Device | null> {
     return this.deviceRepository.findById(id);
   }
+
+  createNewDevice(device: Device): Promise<Device | null> {
+    return this.deviceRepository.createNew(device);
+  }
 }
