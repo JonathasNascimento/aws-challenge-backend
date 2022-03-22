@@ -3,6 +3,7 @@ import { DeviceRepository } from 'src/repositories/device/device.repository';
 import { PrismaService } from 'src/repositories/prisma/prisma.service';
 import { DeviceService } from 'src/services/device/device.service';
 
+import { HttpResponse } from '../http-response';
 import { DeviceController } from './device.controller';
 
 describe('DeviceController', () => {
@@ -36,26 +37,34 @@ describe('DeviceController', () => {
       jest
         .spyOn(service, 'findDevices')
         .mockImplementation(() => Promise.resolve([device]));
-      expect(await controller.findDevices()).toStrictEqual([{ ...device }]);
+      expect(await controller.findDevices()).toStrictEqual(
+        new HttpResponse([{ ...device }]),
+      );
     });
 
     it('should fetch one device', async () => {
       jest.spyOn(service, 'findDeviceById').mockImplementation(() => device);
-      expect(await controller.findDeviceById(1)).toBe(device);
+      expect(await controller.findDeviceById(1)).toStrictEqual(
+        new HttpResponse(device),
+      );
     });
   });
 
   describe('createDevice', () => {
     it('should create one device', async () => {
       jest.spyOn(service, 'createNewDevice').mockImplementation(() => device);
-      expect(await controller.createDevice(device)).toBe(device);
+      expect(await controller.createDevice(device)).toStrictEqual(
+        new HttpResponse(device),
+      );
     });
   });
 
   describe('deleteDevice', () => {
     it('should delete a device', async () => {
       jest.spyOn(service, 'deleteDevice').mockImplementation(() => device);
-      expect(await controller.deleteDevice(1)).toBe(device);
+      expect(await controller.deleteDevice(1)).toStrictEqual(
+        new HttpResponse(device),
+      );
     });
   });
 });
