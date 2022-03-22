@@ -8,40 +8,40 @@ export class DeviceRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async findAll(): Promise<(DeviceModel | null)[]> {
-    const devices = await this.prisma.device.findMany();
-    return Promise.all(devices.map(this.toDeviceModel));
+    const devices = await this.prisma.device.findMany({
+      include: {
+        category: {
+          select: { name: true },
+        },
+      },
+    });
+    return Promise.all(devices);
   }
 
   async findById(id: number): Promise<DeviceModel | null> {
-    const device = await this.prisma.device.findUnique({ where: { id: +id } });
-    return Promise.resolve(this.toDeviceModel(device));
+    const device = await this.prisma.device.findUnique({
+      where: { id: +id },
+      include: {
+        category: true,
+      },
+    });
+    return Promise.resolve(device);
   }
 
   async createNew(device: DeviceModel) {
     const newDevice = await this.prisma.device.create({ data: device });
-    return Promise.resolve(this.toDeviceModel(newDevice));
+    return Promise.resolve(newDevice);
   }
 
   async delete(id: number) {
     let device: Device | null;
 
     try {
-      device = this.toDeviceModel(
-        await this.prisma.device.delete({ where: { id: +id } }),
-      );
+      device = await this.prisma.device.delete({ where: { id: +id } });
     } catch (error) {
       device = null;
     }
 
     return Promise.resolve(device);
-  }
-
-  private toDeviceModel(device: Device | null): DeviceModel | null {
-    if (device === null) {
-      return null;
-    }
-
-    const { id, categoryId, color, partNumber } = device;
-    return { id, categoryId, color, partNumber };
   }
 }
