@@ -10,11 +10,14 @@ export class CategoryRepository {
 
   async findAll(): Promise<(CategoryModel | null)[]> {
     const categories = await this.prisma.category.findMany();
-    return Promise.all(categories.map(this.toCategoryModel));
+    return Promise.resolve(categories.map(this.toCategoryModel));
   }
 
-  findById(): Promise<CategoryModel | null> {
-    return Promise.resolve(null);
+  async findById(id: number): Promise<CategoryModel | null> {
+    const category = await this.prisma.category.findUnique({
+      where: { id: +id },
+    });
+    return Promise.resolve(this.toCategoryModel(category));
   }
 
   createNew(): Promise<CategoryModel | null> {
@@ -25,7 +28,7 @@ export class CategoryRepository {
     return Promise.resolve(null);
   }
 
-  private toCategoryModel(category: Category): CategoryModel | null {
+  private toCategoryModel(category: Category | null): CategoryModel | null {
     if (!category) {
       return null;
     }
