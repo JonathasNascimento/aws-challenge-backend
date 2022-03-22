@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, NotFoundException, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { Device } from 'src/models/device';
 import { DeviceService } from 'src/services/device/device.service';
 
@@ -12,10 +12,19 @@ export class DeviceController {
   }
 
   @Get(':id')
-  findDeviceById(
+  async findDeviceById(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<Device | null> {
-    return this.deviceService.findDeviceById(id);
+    const device = await this.deviceService.findDeviceById(id);
+
+    if (!device) {
+      throw new NotFoundException({
+        statusCode: HttpStatus.NOT_FOUND,
+        error: `Device with id ${id} not found`,
+      });
+    }
+
+    return device;
   }
 
   @Post()
