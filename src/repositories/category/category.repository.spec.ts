@@ -49,4 +49,16 @@ describe('CategoryRepository', () => {
       });
     });
   });
+
+  describe('create', () => {
+    it('should create new device', async () => {
+      mockCtx.prisma.category.create.mockResolvedValue({
+        id: 1,
+        name: 'smarthphone',
+      });
+      await expect(
+        categoryRepository.createNew({ id: 1, name: 'smarthphone' }),
+      ).resolves.toEqual({ id: 1, name: 'smarthphone' });
+    });
+  });
 });
