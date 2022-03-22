@@ -50,8 +50,8 @@ describe('CategoryRepository', () => {
     });
   });
 
-  describe('create', () => {
-    it('should create new device', async () => {
+  describe('create category', () => {
+    it('should create new category', async () => {
       mockCtx.prisma.category.create.mockResolvedValue({
         id: 1,
         name: 'smarthphone',
@@ -59,6 +59,20 @@ describe('CategoryRepository', () => {
       await expect(
         categoryRepository.createNew({ id: 1, name: 'smarthphone' }),
       ).resolves.toEqual({ id: 1, name: 'smarthphone' });
+    });
+  });
+
+  describe('delete category', () => {
+    it('should delete a category', async () => {
+      mockCtx.prisma.category.delete.mockResolvedValue({
+        id: 1,
+        name: 'smarthphone',
+      });
+
+      await expect(categoryRepository.delete(1)).resolves.toEqual({
+        id: 1,
+        name: 'smarthphone',
+      });
     });
   });
 });

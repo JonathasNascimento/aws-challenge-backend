@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Category } from '@prisma/client';
 import { Category as CategoryModel } from 'src/models/category';
 
@@ -6,6 +6,8 @@ import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class CategoryRepository {
+  private readonly logger = new Logger(CategoryRepository.name);
+
   constructor(private readonly prisma: PrismaService) {}
 
   async findAll(): Promise<(CategoryModel | null)[]> {
@@ -25,8 +27,19 @@ export class CategoryRepository {
     return Promise.resolve(newCategory);
   }
 
-  delete(): Promise<CategoryModel | null> {
-    return Promise.resolve(null);
+  async delete(id: number): Promise<CategoryModel | null> {
+    let category: Category | null;
+
+    try {
+      category = this.toCategoryModel(
+        await this.prisma.category.delete({ where: { id: +id } }),
+      );
+    } catch (error) {
+      this.logger.error(error);
+      category = null;
+    }
+
+    return Promise.resolve(category);
   }
 
   private toCategoryModel(category: Category | null): CategoryModel | null {
