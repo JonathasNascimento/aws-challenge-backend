@@ -20,8 +20,9 @@ export class CategoryRepository {
     return Promise.resolve(this.toCategoryModel(category));
   }
 
-  createNew(): Promise<CategoryModel | null> {
-    return Promise.resolve(null);
+  async createNew(category: CategoryModel): Promise<CategoryModel | null> {
+    const newCategory = await this.prisma.category.create({ data: category });
+    return Promise.resolve(newCategory);
   }
 
   delete(): Promise<CategoryModel | null> {
