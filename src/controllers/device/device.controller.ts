@@ -24,7 +24,7 @@ export class DeviceController {
   }
 
   @Delete(':id')
-  deleteDevice(@Param() params): Promise<Device | null> {
-    return this.deviceService.deleteDevice(params.id);
+  deleteDevice(@Param('id', ParseIntPipe) id: number): Promise<Device | null> {
+    return this.deviceService.deleteDevice(id);
   }
 }

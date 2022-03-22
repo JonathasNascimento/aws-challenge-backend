@@ -55,7 +55,7 @@ describe('DeviceController', () => {
   describe('deleteDevice', () => {
     it('should delete a device', async () => {
       jest.spyOn(service, 'deleteDevice').mockImplementation(() => device);
-      expect(await controller.deleteDevice({ params: { id: 1 } })).toBe(device);
+      expect(await controller.deleteDevice(1)).toBe(device);
     });
   });
 });
