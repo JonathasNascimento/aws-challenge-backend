@@ -4,7 +4,7 @@ import { DeviceService } from 'src/services/device/device.service';
 
 import { HttpResponse } from '../http-response';
 
-@Controller('device')
+@Controller('devices')
 export class DeviceController {
   constructor(private readonly deviceService: DeviceService) {}
 
