@@ -1,3 +1,4 @@
+// eslint-disable-next-line prettier/prettier
 import { Body, Controller, Delete, Get, HttpStatus, NotFoundException, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { Device } from 'src/models/device';
 import { DeviceService } from 'src/services/device/device.service';
