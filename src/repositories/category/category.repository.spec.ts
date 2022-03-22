@@ -37,5 +37,16 @@ describe('CategoryRepository', () => {
         { id: 1, name: 'smarthphone' },
       ]);
     });
+
+    it('should fetch one category', async () => {
+      mockCtx.prisma.category.findUnique.mockResolvedValue({
+        id: 1,
+        name: 'smarthphone',
+      });
+      await expect(categoryRepository.findById(1)).resolves.toEqual({
+        id: 1,
+        name: 'smarthphone',
+      });
+    });
   });
 });
