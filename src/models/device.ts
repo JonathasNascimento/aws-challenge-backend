@@ -1,3 +1,4 @@
+// eslint-disable-next-line prettier/prettier
 import { IsAlpha, IsNotEmpty, IsNumber, IsPositive, IsString, MaxLength } from 'class-validator';
 
 export class Device {

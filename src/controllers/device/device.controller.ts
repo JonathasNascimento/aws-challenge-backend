@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { Device } from 'src/models/device';
 import { DeviceService } from 'src/services/device/device.service';
 
@@ -12,8 +12,10 @@ export class DeviceController {
   }
 
   @Get(':id')
-  findDeviceById(@Param() params): Promise<Device | null> {
-    return this.deviceService.findDeviceById(params.id);
+  findDeviceById(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<Device | null> {
+    return this.deviceService.findDeviceById(id);
   }
 
   @Post()

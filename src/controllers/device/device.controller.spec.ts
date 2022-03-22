@@ -41,9 +41,7 @@ describe('DeviceController', () => {
 
     it('should fetch one device', async () => {
       jest.spyOn(service, 'findDeviceById').mockImplementation(() => device);
-      expect(await controller.findDeviceById({ params: { id: 1 } })).toBe(
-        device,
-      );
+      expect(await controller.findDeviceById(1)).toBe(device);
     });
   });
 
