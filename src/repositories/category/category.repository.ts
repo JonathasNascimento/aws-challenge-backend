@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Category } from '@prisma/client';
 import { Category as CategoryModel } from 'src/models/category';
 
 import { PrismaService } from '../prisma/prisma.service';
@@ -7,8 +8,9 @@ import { PrismaService } from '../prisma/prisma.service';
 export class CategoryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  findAll(): Promise<CategoryModel[]> {
-    return Promise.resolve([]);
+  async findAll(): Promise<(CategoryModel | null)[]> {
+    const categories = await this.prisma.category.findMany();
+    return Promise.all(categories.map(this.toCategoryModel));
   }
 
   findById(): Promise<CategoryModel | null> {
@@ -21,5 +23,14 @@ export class CategoryRepository {
 
   delete(): Promise<CategoryModel | null> {
     return Promise.resolve(null);
+  }
+
+  private toCategoryModel(category: Category): CategoryModel | null {
+    if (!category) {
+      return null;
+    }
+
+    const { id, name } = category;
+    return { id, name };
   }
 }
