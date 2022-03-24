@@ -1,7 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaClient } from '@prisma/client';
+import { DeviceService } from 'src/services/device/device.service';
 
 import { createMockContext, MockContext } from '../../../test/context';
+import { DeviceRepository } from '../device/device.repository';
 import { PrismaService } from '../prisma/prisma.service';
 import { CategoryRepository } from './category.repository';
 
@@ -12,7 +14,13 @@ describe('CategoryRepository', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [CategoryRepository, PrismaService, PrismaClient],
+      providers: [
+        CategoryRepository,
+        DeviceRepository,
+        PrismaService,
+        DeviceService,
+        PrismaClient,
+      ],
     }).compile();
 
     repository = module.get<CategoryRepository>(CategoryRepository);
