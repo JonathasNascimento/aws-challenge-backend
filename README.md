@@ -2,7 +2,7 @@ Acesso ao projeto
 
 http://bucket-q3d48-aws.s3-website-us-east-1.amazonaws.com/devices
 
-# Backend
+## Backend
 
 git clone https://github.com/JonathasNascimento/aws-challenge-backend.git
 
@@ -13,26 +13,30 @@ Para esse projeto foi usado o Node na versão v12.22.11
 Após o clone do projeto:
 
 - Instalar as dependências do package.json
-  `$ yarn install`
+
+ `$ yarn install`
 
 - Renomear .env.example para .env
 
 - No arquivo .env alterar a string de conexão com o usuário, senha e host do banco que será usado
 
-Para subir o banco local eu usei o docker com uma imagem do mysql 8 configurado com o usuário root e senha root
+- Para subir o banco local eu usei o docker com uma imagem do mysql 8 configurado com o usuário root e senha root
 
-`$ cd docker && docker-compose up -d`
+ `$ cd docker && docker-compose up -d`
 
 - Após configurar o acesso ao banco é necessário gerar as configurações do Prisma com:
-  `$ npx prisma generate`
+ 
+ `$ npx prisma generate`
 
 - O script de geração do banco está em `prima/migration`, ou pelo comando:
-  `$ npx prisma db push`
+ 
+ `$ npx prisma db push`
 
 - Para subir o projeto
 
-  `$ yarn run start:dev`
-  ou
+ `$ yarn run start:dev`
+ 
+ ou
 
   ```
   $ npx nest build
@@ -40,4 +44,5 @@ Para subir o banco local eu usei o docker com uma imagem do mysql 8 configurado 
   ```
 
 - Para rodar os testes
+  
   `$ yarn run test`
