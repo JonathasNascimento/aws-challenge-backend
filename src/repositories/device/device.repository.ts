@@ -28,6 +28,10 @@ export class DeviceRepository {
     return Promise.resolve(device);
   }
 
+  countByCategoryId(categoryId: number): Promise<number> {
+    return this.prisma.device.count({ where: { categoryId } });
+  }
+
   async createNew(device: DeviceModel) {
     const newDevice = await this.prisma.device.create({ data: device });
     return Promise.resolve(newDevice);

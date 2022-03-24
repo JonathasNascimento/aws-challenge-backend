@@ -14,6 +14,10 @@ export class DeviceService {
     return this.deviceRepository.findById(id);
   }
 
+  countDevicesByCategoryId(categoryId: number): Promise<number> {
+    return this.deviceRepository.countByCategoryId(categoryId);
+  }
+
   createNewDevice(device: Device): Promise<Device | null> {
     return this.deviceRepository.createNew(device);
   }
